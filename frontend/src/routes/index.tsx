@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { DashboardPage } from "@/features/dashboard/dashboard-page";
+export const Route = createFileRoute("/")({ head:()=>({meta:[{title:"GBP Management Dashboard — Global360"},{name:"description",content:"Enterprise Google Business Profile health, reputation, rankings and performance command center."},{property:"og:title",content:"GBP Management Dashboard — Global360"},{property:"og:description",content:"Enterprise Google Business Profile health, reputation, rankings and performance command center."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:DashboardPage });

@@ -1,0 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Building2 } from "lucide-react";
+import { SecondaryPage } from "@/features/platform/secondary-page";
+export const Route = createFileRoute("/locations/groups")({ head:()=>({meta:[{title:"Location groups — Global360"},{name:"description",content:"Manage regional and operational groups across the portfolio."},{property:"og:title",content:"Location groups — Global360"},{property:"og:description",content:"Manage regional and operational groups across the portfolio."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:()=> <SecondaryPage title="Location groups" description="Manage regional and operational groups across the portfolio." icon={Building2} items={['North Operations', 'South Operations', 'Flagship Stores', 'Franchise Partners', 'New Market Launches', 'Service Centers']} /> });

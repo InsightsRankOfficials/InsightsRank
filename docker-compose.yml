@@ -1,0 +1,52 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: global360-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: global360
+      POSTGRES_USER: global360_user
+      POSTGRES_PASSWORD: global360_dev_password
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - global360_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U global360_user -d global360"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  redis:
+    image: redis:7
+    container_name: global360-redis
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+    volumes:
+      - global360_redis_data:/data
+
+    command: redis-server --appendonly yes
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+volumes:
+
+  global360_postgres_data:
+    name: global360_postgres_data
+
+  global360_redis_data:
+    name: global360_redis_data

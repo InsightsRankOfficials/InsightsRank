@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PerformancePage } from "@/features/performance/performance-page";
+export const Route=createFileRoute("/performance")({head:()=>({meta:[{title:"GBP Performance Analytics — Global360"},{name:"description",content:"Analyze Google Search, Maps and customer action performance across locations."},{property:"og:title",content:"GBP Performance Analytics — Global360"},{property:"og:description",content:"Analyze Google Search, Maps and customer action performance across locations."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:PerformancePage});

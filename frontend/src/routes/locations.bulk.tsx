@@ -1,0 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ListChecks } from "lucide-react";
+import { SecondaryPage } from "@/features/platform/secondary-page";
+export const Route = createFileRoute("/locations/bulk")({ head:()=>({meta:[{title:"Bulk operations — Global360"},{name:"description",content:"Apply governed changes safely across thousands of profiles."},{property:"og:title",content:"Bulk operations — Global360"},{property:"og:description",content:"Apply governed changes safely across thousands of profiles."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}), component:()=> <SecondaryPage title="Bulk operations" description="Apply governed changes safely across thousands of profiles." icon={ListChecks} items={['Update business hours', 'Change primary category', 'Assign location group', 'Trigger profile sync', 'Export profile data', 'Resolve validation errors']} /> });

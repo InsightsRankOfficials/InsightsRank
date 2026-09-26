@@ -1,0 +1,246 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Global360 design system.
+ * Enterprise dark UI: near-black canvas, layered surfaces, electric blue accent.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-sans:
+    "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-elevated: var(--elevated);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-muted: var(--primary-muted);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --shadow-panel: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 18px 40px -24px oklch(0 0 0 / 80%);
+  --shadow-pop: 0 24px 60px -20px oklch(0 0 0 / 85%);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Canvas + surfaces */
+  --background: oklch(0.145 0.004 285);
+  --foreground: oklch(0.965 0.002 285);
+  --surface: oklch(0.185 0.004 285);
+  --surface-foreground: oklch(0.965 0.002 285);
+  --elevated: oklch(0.215 0.005 285);
+  --card: oklch(0.185 0.004 285);
+  --card-foreground: oklch(0.965 0.002 285);
+  --popover: oklch(0.205 0.005 285);
+  --popover-foreground: oklch(0.965 0.002 285);
+
+  /* Electric blue accent */
+  --primary: oklch(0.623 0.214 259);
+  --primary-foreground: oklch(0.98 0 0);
+  --primary-muted: oklch(0.623 0.214 259 / 14%);
+
+  --secondary: oklch(0.245 0.005 285);
+  --secondary-foreground: oklch(0.92 0.002 285);
+  --muted: oklch(0.235 0.005 285);
+  --muted-foreground: oklch(0.7 0.008 285);
+  --accent: oklch(0.26 0.006 285);
+  --accent-foreground: oklch(0.965 0.002 285);
+
+  /* Status */
+  --destructive: oklch(0.63 0.208 25);
+  --destructive-foreground: oklch(0.98 0.005 25);
+  --success: oklch(0.73 0.168 152);
+  --success-foreground: oklch(0.18 0.04 152);
+  --warning: oklch(0.82 0.15 86);
+  --warning-foreground: oklch(0.2 0.04 86);
+  --info: oklch(0.68 0.145 250);
+  --info-foreground: oklch(0.16 0.04 250);
+
+  --border: oklch(1 0 0 / 9%);
+  --border-strong: oklch(1 0 0 / 16%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.623 0.214 259 / 60%);
+
+  --chart-1: oklch(0.623 0.214 259);
+  --chart-2: oklch(0.73 0.168 152);
+  --chart-3: oklch(0.68 0.145 250);
+  --chart-4: oklch(0.68 0.19 330);
+  --chart-5: oklch(0.63 0.208 25);
+  --chart-6: oklch(0.78 0.12 195);
+
+  --sidebar: oklch(0.165 0.004 285);
+  --sidebar-foreground: oklch(0.88 0.004 285);
+  --sidebar-primary: oklch(0.623 0.214 259);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.235 0.005 285);
+  --sidebar-accent-foreground: oklch(0.97 0.002 285);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.623 0.214 259 / 60%);
+
+  --sidebar-width: 16rem;
+  --sidebar-width-icon: 3.25rem;
+}
+
+/* The product is dark-first; .dark mirrors :root so shadcn variants stay valid. */
+.dark {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
+  --background: oklch(0.98 0.002 285);
+  --foreground: oklch(0.145 0.004 285);
+  --surface: oklch(1 0 0);
+  --surface-foreground: oklch(0.145 0.004 285);
+  --elevated: oklch(0.96 0.003 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.004 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.004 285);
+  --secondary: oklch(0.94 0.003 285);
+  --secondary-foreground: oklch(0.18 0.004 285);
+  --muted: oklch(0.94 0.003 285);
+  --muted-foreground: oklch(0.45 0.008 285);
+  --accent: oklch(0.92 0.005 285);
+  --accent-foreground: oklch(0.145 0.004 285);
+  --border: oklch(0 0 0 / 12%);
+  --border-strong: oklch(0 0 0 / 22%);
+  --input: oklch(0 0 0 / 14%);
+  --sidebar: oklch(0.97 0.003 285);
+  --sidebar-foreground: oklch(0.2 0.004 285);
+  --sidebar-accent: oklch(0.91 0.005 285);
+  --sidebar-accent-foreground: oklch(0.145 0.004 285);
+  --sidebar-primary: oklch(0.623 0.214 259);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(0 0 0 / 10%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted-foreground);
+    background-clip: content-box;
+  }
+}
+
+/* Panel: the standard enterprise container treatment. */
+@utility panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* Numeric/data text: tabular figures for tables and KPIs. */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* Subtle top-lit gradient used on KPI + hero panels. */
+@utility panel-lit {
+  background-image: linear-gradient(
+    180deg,
+    oklch(1 0 0 / 3.5%) 0%,
+    oklch(1 0 0 / 0%) 60%
+  );
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
