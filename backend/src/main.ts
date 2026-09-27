@@ -67,11 +67,11 @@ async function bootstrap() {
 
   // Swagger OpenAPI Documentation
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Global360 API')
-    .setDescription('Global360 Modular Monolith Backend Authentication & API Engine')
+    .setTitle('InsightsRank API')
+    .setDescription('InsightsRank Modular Monolith Backend Authentication & API Engine')
     .setVersion('1.0.0')
     .addBearerAuth()
-    .addCookieAuth('global360_access_token')
+    .addCookieAuth('insightsrank_access_token')
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
@@ -79,7 +79,7 @@ async function bootstrap() {
 
   // Listen on 0.0.0.0 for Render compatibility
   await app.listen(port, '0.0.0.0');
-  logger.log(`🚀 Global360 Backend API running on http://0.0.0.0:${port}/api/v1`);
+  logger.log(`🚀 InsightsRank Backend API running on http://0.0.0.0:${port}/api/v1`);
   logger.log(`📚 Swagger documentation available at http://localhost:${port}/docs`);
 }
 

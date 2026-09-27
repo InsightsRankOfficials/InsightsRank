@@ -4,7 +4,7 @@ import { PerformancePage } from "@/features/performance/performance-page";
 export const Route = createFileRoute("/performance/maps")({
   head: () => ({
     meta: [
-      { title: "Maps performance — Global360" },
+      { title: "Maps performance — InsightsRank" },
       { name: "description", content: "Analyze Google Maps view performance across locations." },
     ],
   }),

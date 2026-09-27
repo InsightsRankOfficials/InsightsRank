@@ -229,7 +229,7 @@ export function LocationsImportView({
             <tr className="hover:bg-secondary/20">
               <td className="py-2.5 px-4 font-bold text-foreground">Pushkar</td>
               <td className="py-2.5 px-4 font-bold text-foreground">Rana</td>
-              <td className="py-2.5 px-4 font-mono text-muted-foreground">pushkar.rana@global360.com</td>
+              <td className="py-2.5 px-4 font-mono text-muted-foreground">pushkar.rana@insightsrank.com</td>
               <td className="py-2.5 px-4 font-mono text-muted-foreground">+91 83609 99766</td>
               <td className="py-2.5 px-4 text-emerald-400 font-semibold">Active</td>
               <td className="py-2.5 px-4 text-muted-foreground">Demo Store 127, Demo Store 100</td>
@@ -237,7 +237,7 @@ export function LocationsImportView({
             <tr className="hover:bg-secondary/20">
               <td className="py-2.5 px-4 font-bold text-foreground">Animesh</td>
               <td className="py-2.5 px-4 font-bold text-foreground">Mallick</td>
-              <td className="py-2.5 px-4 font-mono text-muted-foreground">animesh.mallick@global360.com</td>
+              <td className="py-2.5 px-4 font-mono text-muted-foreground">animesh.mallick@insightsrank.com</td>
               <td className="py-2.5 px-4 font-mono text-muted-foreground">+91 90000 00000</td>
               <td className="py-2.5 px-4 text-emerald-400 font-semibold">Active</td>
               <td className="py-2.5 px-4 text-muted-foreground">Demo Store 296</td>

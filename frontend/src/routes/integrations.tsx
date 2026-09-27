@@ -4,7 +4,7 @@ import { PlatformUnifiedPage } from "@/features/platform/platform-page";
 export const Route = createFileRoute("/integrations")({
   head: () => ({
     meta: [
-      { title: "Google integrations — Global360" },
+      { title: "Google integrations — InsightsRank" },
       { name: "description", content: "Connection health, token status and API readiness for every account." },
     ],
   }),

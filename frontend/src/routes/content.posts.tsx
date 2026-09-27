@@ -4,7 +4,7 @@ import { ContentPage } from "@/features/content/content-page";
 export const Route = createFileRoute("/content/posts")({
   head: () => ({
     meta: [
-      { title: "Posts — Global360" },
+      { title: "Posts — InsightsRank" },
       { name: "description", content: "Create, schedule and govern local content across location groups." },
     ],
   }),

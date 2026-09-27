@@ -3,9 +3,9 @@ import { REGIONS } from "./categories";
 
 export const ORGANIZATIONS: Organization[] = [
   {
-    id: "org_global360",
-    name: "Global360 Demo Group",
-    slug: "global360",
+    id: "org_insightsrank",
+    name: "InsightsRank Demo Group",
+    slug: "insightsrank",
     plan: "enterprise_plus",
     locationCount: 128452,
     userCount: 486,

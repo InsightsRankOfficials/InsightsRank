@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Global360 design system.
+ * InsightsRank design system.
  * Enterprise dark UI: near-black canvas, layered surfaces, electric blue accent.
  * All colors are oklch semantic tokens. Never hardcode colors in components.
  */

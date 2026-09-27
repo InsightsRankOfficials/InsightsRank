@@ -160,7 +160,7 @@ export function LocationsOverviewTab() {
               <div className="space-y-1 text-[11px]">
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-1 text-muted-foreground">
-                    <span className="text-[10px] text-sky-400">••••</span> Global360
+                    <span className="text-[10px] text-sky-400">••••</span> InsightsRank
                   </span>
                   <span className="tnum font-bold text-foreground">{kpis.published}</span>
                 </div>

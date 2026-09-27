@@ -18,7 +18,7 @@ export const NOTIFICATIONS: AppNotification[] = [
     id: "ntf_2",
     organizationId: DEFAULT_ORGANIZATION_ID,
     title: "Google connection requires attention",
-    description: "gbp-south@global360.com expired — 12,842 locations are serving stale data.",
+    description: "gbp-south@insightsrank.com expired — 12,842 locations are serving stale data.",
     category: "integrations",
     priority: "high",
     createdAt: mins(48),

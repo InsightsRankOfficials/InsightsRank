@@ -72,7 +72,7 @@ export function startSync(scope: string): Promise<SyncJob> {
   return request("POST /sync", () => {
     const job: SyncJob = {
       id: `job_${Date.now()}`,
-      organizationId: "org_global360",
+      organizationId: "org_insightsrank",
       type: "full_sync",
       status: "queued",
       startedAt: new Date().toISOString(),
@@ -121,13 +121,13 @@ export function reconnectIntegration(id: string): Promise<Integration> {
 
 /** POST /integrations/connect */
 export function connectIntegration(
-  accountEmail: string = "gbp-central@global360.com",
+  accountEmail: string = "gbp-central@insightsrank.com",
   accountName: string = "Central Region GBP"
 ): Promise<Integration> {
   return request("POST /integrations/connect", () => {
     const newIntegration: Integration = {
       id: `int_${Date.now()}`,
-      organizationId: "org_global360",
+      organizationId: "org_insightsrank",
       provider: "google_business_profile",
       accountEmail,
       accountName,
@@ -220,6 +220,6 @@ export function getReports(params: ListParams = {}): Promise<Paginated<Report>> 
 /** POST /reports/:id/export */
 export function exportReport(id: string): Promise<{ url: string }> {
   return request(`POST /reports/${id}/export`, () => ({
-    url: `https://exports.global360.com/${id}.pdf`,
+    url: `https://exports.insightsrank.com/${id}.pdf`,
   }));
 }

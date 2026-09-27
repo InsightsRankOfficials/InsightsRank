@@ -1,4 +1,4 @@
-# Global360 — Authentication Architecture Documentation
+# InsightsRank — Authentication Architecture Documentation
 
 ## 1. Authentication Flow Diagram
 
@@ -35,7 +35,7 @@ PostgreSQL 16 (Authoritative User & Tenant Database)
 - **Security Constraints**: No sensitive data (e.g. password hashes, internal secrets) inside JWT payload.
 
 ### Cookie Delivery
-- For browser client compatibility and protection against XSS token extraction, credentials are set in HttpOnly cookies (`global360_access_token`).
+- For browser client compatibility and protection against XSS token extraction, credentials are set in HttpOnly cookies (`insightsrank_access_token`).
 - **Cookie Properties**:
   - `HttpOnly`: `true` (Inaccessible to client-side JavaScript)
   - `Secure`: `true` in production (`process.env.NODE_ENV === 'production'`)
@@ -72,12 +72,12 @@ On page load or refresh:
 
 ```
 [Application Login]
-User Credentials -> Global360 Auth API -> NestJS -> PostgreSQL Users Table
-(Performs login to the Global360 SaaS Platform)
+User Credentials -> InsightsRank Auth API -> NestJS -> PostgreSQL Users Table
+(Performs login to the InsightsRank SaaS Platform)
 
 [Google Business Profile OAuth] (Future Milestone)
 User Action -> Google OAuth 2.0 -> NestJS -> Google Connection Table -> GBP APIs
 (Grants permission to pull store location data & reviews from Google)
 ```
 
-Application login and Google OAuth are strictly separate. Google OAuth tokens will never be used as Global360 user login credentials.
+Application login and Google OAuth are strictly separate. Google OAuth tokens will never be used as InsightsRank user login credentials.

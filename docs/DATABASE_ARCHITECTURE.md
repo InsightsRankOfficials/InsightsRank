@@ -1,4 +1,4 @@
-# Global360 — Database Architecture Documentation
+# InsightsRank — Database Architecture Documentation
 
 ## 1. Data Store Strategy
 PostgreSQL 16 is the **sole source of truth** for all core application data, users, multi-tenant organizations, and future domain entities.
@@ -15,7 +15,7 @@ Represents an enterprise tenant account in the multi-tenant hierarchy.
 | Field | Type | Attributes | Description |
 |---|---|---|---|
 | `id` | String / UUID | `@id @default(uuid())` | Primary key |
-| `name` | String | | Tenant name (e.g. "Global360 Operations") |
+| `name` | String | | Tenant name (e.g. "InsightsRank Operations") |
 | `slug` | String | `@unique` | URL-friendly identifier |
 | `status` | String | `@default("ACTIVE")` | Status: `ACTIVE`, `SUSPENDED`, `ARCHIVED` |
 | `createdAt` | DateTime | `@default(now())` | Record creation timestamp |

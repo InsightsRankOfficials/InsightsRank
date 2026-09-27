@@ -54,7 +54,7 @@ export function UserProfileMenu() {
         <div className="text-center space-y-0.5">
           <p className="text-xs font-semibold text-foreground">{user?.email || "demo@example.com"}</p>
           <p className="text-[10px] text-muted-foreground">
-            {user?.organization?.name ? `Organization: ${user.organization.name}` : "Managed by Global360"}
+            {user?.organization?.name ? `Organization: ${user.organization.name}` : "Managed by InsightsRank"}
           </p>
         </div>
 

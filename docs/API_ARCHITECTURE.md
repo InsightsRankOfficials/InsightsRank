@@ -1,4 +1,4 @@
-# Global360 — API Architecture Documentation
+# InsightsRank — API Architecture Documentation
 
 ## 1. API Principles
 All backend endpoints are prefixed with `/api/v1/`.
@@ -103,7 +103,7 @@ All API responses use a standardized JSON wrapper:
 }
 ```
 - **Response** (200 OK):
-  - Sets HttpOnly Cookie: `global360_access_token`
+  - Sets HttpOnly Cookie: `insightsrank_access_token`
 ```json
 {
   "success": true,
@@ -155,7 +155,7 @@ All API responses use a standardized JSON wrapper:
 - **Path**: `POST /api/v1/auth/logout`
 - **Authentication**: Required (`JwtAuthGuard`)
 - **Response** (200 OK):
-  - Clears `global360_access_token` cookie.
+  - Clears `insightsrank_access_token` cookie.
 ```json
 {
   "success": true,

@@ -4,9 +4,9 @@ import { ReviewAssistantPage } from "@/features/review-assistant/review-assistan
 export const Route = createFileRoute("/review-assistant")({
   head: () => ({
     meta: [
-      { title: "Review Assistant — Global360" },
+      { title: "Review Assistant — InsightsRank" },
       { name: "description", content: "Review Generator Dashboard, customer review logs, and AI feedback options." },
-      { property: "og:title", content: "Review Assistant — Global360" },
+      { property: "og:title", content: "Review Assistant — InsightsRank" },
       { property: "og:description", content: "Review Generator Dashboard, customer review logs, and AI feedback options." },
     ],
   }),

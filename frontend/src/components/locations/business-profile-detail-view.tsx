@@ -227,7 +227,7 @@ export function BusinessProfileDetailView({
     address: "JMD Regent Arcade, 4th floor, MG Road, Mumbai, 400050, Maharashtra, IN",
     phone: "+91-8368761913",
     additionalPhones: "N/A",
-    website: "https://global360.com/",
+    website: "https://insightsrank.com/",
     lat: "28.479716",
     lng: "77.0885703",
     visibilityScore: "100%",
@@ -236,7 +236,7 @@ export function BusinessProfileDetailView({
     completionScore: "100%",
     managerName: "Pushkar Rana",
     managerPhone: "+918368999766",
-    managerEmail: "pushkar.rana@global360.com",
+    managerEmail: "pushkar.rana@insightsrank.com",
   };
 
   const loc = {

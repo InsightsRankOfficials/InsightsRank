@@ -1,4 +1,4 @@
-# Global360 — Backend Implementation Plan
+# InsightsRank — Backend Implementation Plan
 
 ## Milestone 1: Authentication Foundation
 

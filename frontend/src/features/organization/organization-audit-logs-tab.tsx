@@ -40,10 +40,10 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_101",
     timestamp: "25 Sep 2026, 02:30 PM",
-    actor: { name: "Aarav Sharma", email: "aarav.sharma@global360.com", avatarInitials: "AS" },
+    actor: { name: "Aarav Sharma", email: "aarav.sharma@insightsrank.com", avatarInitials: "AS" },
     action: "User Invited",
     category: "User Management",
-    target: "diya.patel@global360.com (Analyst)",
+    target: "diya.patel@insightsrank.com (Analyst)",
     ipAddress: "49.37.12.98",
     region: "Mumbai, IN",
     status: "success",
@@ -52,7 +52,7 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_102",
     timestamp: "25 Sep 2026, 01:15 PM",
-    actor: { name: "Sneha Joshi", email: "sneha.joshi@global360.com", avatarInitials: "SJ" },
+    actor: { name: "Sneha Joshi", email: "sneha.joshi@insightsrank.com", avatarInitials: "SJ" },
     action: "OAuth Token Reconnected",
     category: "Integration Sync",
     target: "Google Business Account #104",
@@ -64,7 +64,7 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_103",
     timestamp: "25 Sep 2026, 11:45 AM",
-    actor: { name: "Vikram Bose", email: "vikram.bose@global360.com", avatarInitials: "VB" },
+    actor: { name: "Vikram Bose", email: "vikram.bose@insightsrank.com", avatarInitials: "VB" },
     action: "Bulk Location Sync Queued",
     category: "Bulk Operations",
     target: "25 Locations in Maharashtra",
@@ -76,7 +76,7 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_104",
     timestamp: "25 Sep 2026, 09:20 AM",
-    actor: { name: "Ananya Roy", email: "ananya.roy@global360.com", avatarInitials: "AR" },
+    actor: { name: "Ananya Roy", email: "ananya.roy@insightsrank.com", avatarInitials: "AR" },
     action: "Performance Report Exported",
     category: "Review Operations",
     target: "Store Performance CSV",
@@ -88,7 +88,7 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_105",
     timestamp: "24 Sep 2026, 08:05 PM",
-    actor: { name: "Rohan Verma", email: "rohan.verma@global360.com", avatarInitials: "RV" },
+    actor: { name: "Rohan Verma", email: "rohan.verma@insightsrank.com", avatarInitials: "RV" },
     action: "Role Permissions Updated",
     category: "Security",
     target: "Role: Location Manager",
@@ -100,7 +100,7 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_106",
     timestamp: "24 Sep 2026, 05:40 PM",
-    actor: { name: "Kabir Mehta", email: "kabir.mehta@global360.com", avatarInitials: "KM" },
+    actor: { name: "Kabir Mehta", email: "kabir.mehta@insightsrank.com", avatarInitials: "KM" },
     action: "AI Review Auto-Response Rule Saved",
     category: "Review Operations",
     target: "Rule #5 Star Auto Response",
@@ -112,10 +112,10 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_107",
     timestamp: "24 Sep 2026, 03:10 PM",
-    actor: { name: "Meera Nair", email: "meera.nair@global360.com", avatarInitials: "MN" },
+    actor: { name: "Meera Nair", email: "meera.nair@insightsrank.com", avatarInitials: "MN" },
     action: "User Access Suspended",
     category: "User Management",
-    target: "karan.singh@global360.com",
+    target: "karan.singh@insightsrank.com",
     ipAddress: "49.37.12.98",
     region: "Mumbai, IN",
     status: "warning",
@@ -124,7 +124,7 @@ const AUDIT_LOG_ITEMS: AuditLogItem[] = [
   {
     id: "log_108",
     timestamp: "24 Sep 2026, 12:00 PM",
-    actor: { name: "System Operations", email: "system@global360.com", avatarInitials: "SO" },
+    actor: { name: "System Operations", email: "system@insightsrank.com", avatarInitials: "SO" },
     action: "Scheduled API Health Check",
     category: "Integration Sync",
     target: "Google Business Profile API",

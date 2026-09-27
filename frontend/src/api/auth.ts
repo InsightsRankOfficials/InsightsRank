@@ -1,5 +1,5 @@
 /**
- * Centralized Authentication API Client for Global360 Frontend
+ * Centralized Authentication API Client for InsightsRank Frontend
  */
 
 export interface Organization {
@@ -52,7 +52,7 @@ async function apiRequest<T>(
   };
 
   // If access token stored in localStorage/sessionStorage, attach Bearer header
-  const token = localStorage.getItem('global360_token') || sessionStorage.getItem('global360_token');
+  const token = localStorage.getItem('insightsrank_token') || sessionStorage.getItem('insightsrank_token');
   if (token) {
     defaultHeaders['Authorization'] = `Bearer ${token}`;
   }
@@ -99,13 +99,13 @@ export const authApi = {
     });
     const token = data.accessToken || (data as any).token;
     if (token) {
-      localStorage.setItem('global360_token', token);
-      sessionStorage.setItem('global360_token', token);
+      localStorage.setItem('insightsrank_token', token);
+      sessionStorage.setItem('insightsrank_token', token);
     }
     if (data.user) {
-      localStorage.setItem('global360_user', JSON.stringify(data.user));
+      localStorage.setItem('insightsrank_user', JSON.stringify(data.user));
     }
-    localStorage.setItem('global360_credentials', JSON.stringify({ email: credentials.email, timestamp: Date.now() }));
+    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email: credentials.email, timestamp: Date.now() }));
     return data;
   },
 
@@ -125,13 +125,13 @@ export const authApi = {
     });
     const token = data.accessToken || (data as any).token;
     if (token) {
-      localStorage.setItem('global360_token', token);
-      sessionStorage.setItem('global360_token', token);
+      localStorage.setItem('insightsrank_token', token);
+      sessionStorage.setItem('insightsrank_token', token);
     }
     if (data.user) {
-      localStorage.setItem('global360_user', JSON.stringify(data.user));
+      localStorage.setItem('insightsrank_user', JSON.stringify(data.user));
     }
-    localStorage.setItem('global360_credentials', JSON.stringify({ email: details.email, timestamp: Date.now() }));
+    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email: details.email, timestamp: Date.now() }));
     return data;
   },
 
@@ -155,10 +155,10 @@ export const authApi = {
     } catch {
       // Ignore errors on network disconnect
     } finally {
-      localStorage.removeItem('global360_token');
-      localStorage.removeItem('global360_user');
-      localStorage.removeItem('global360_credentials');
-      sessionStorage.removeItem('global360_token');
+      localStorage.removeItem('insightsrank_token');
+      localStorage.removeItem('insightsrank_user');
+      localStorage.removeItem('insightsrank_credentials');
+      sessionStorage.removeItem('insightsrank_token');
     }
     return { message: 'Logged out' };
   },

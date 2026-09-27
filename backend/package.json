@@ -1,7 +1,7 @@
 {
-  "name": "global360-backend",
+  "name": "insightsrank-backend",
   "version": "1.0.0",
-  "description": "Global360 Multi-Tenant GBP Management Backend API",
+  "description": "InsightsRank Multi-Tenant GBP Management Backend API",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

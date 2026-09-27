@@ -233,7 +233,7 @@ export function EditProfileView({
     supportUrl: isEdit ? "https://example.com/support" : "",
     reportingEmail: isEdit ? "pushkar.rana@ennigo.co.uk" : "",
     
-    websiteUrl: isEdit ? "https://global360.com/" : "",
+    websiteUrl: isEdit ? "https://insightsrank.com/" : "",
     
     menuUrl: isEdit ? "https://example.com/menu" : "",
     orderUrl: isEdit ? "https://example.com/order" : "",
@@ -1021,7 +1021,7 @@ export function EditProfileView({
                 <div className="relative">
                   <Globe className="size-4 text-muted-foreground absolute left-3 top-2.5 pointer-events-none" />
                   <Input
-                    placeholder="https://global360.com/"
+                    placeholder="https://insightsrank.com/"
                     value={formData.websiteUrl}
                     onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
                     className="h-9 pl-9 bg-white dark:bg-black border-slate-300 dark:border-[#27272a] text-xs text-foreground focus:border-blue-500"

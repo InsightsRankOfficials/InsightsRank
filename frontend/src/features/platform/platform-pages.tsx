@@ -73,7 +73,7 @@ export function IntegrationsPage() {
 
   const handleConnect = (e: React.FormEvent) => {
     e.preventDefault();
-    const email = accountEmail.trim() || `gbp-partner-${Date.now().toString().slice(-4)}@global360.com`;
+    const email = accountEmail.trim() || `gbp-partner-${Date.now().toString().slice(-4)}@insightsrank.com`;
     const name = accountName.trim() || "Central Region GBP";
 
     connectMutation.mutate(
@@ -225,7 +225,7 @@ export function IntegrationsPage() {
               </DialogTitle>
             </div>
             <DialogDescription className="text-xs text-muted-foreground leading-relaxed">
-              Authorize Global360 to connect with Google Business Profile Manager to sync profile locations, insights, and reviews.
+              Authorize InsightsRank to connect with Google Business Profile Manager to sync profile locations, insights, and reviews.
             </DialogDescription>
           </DialogHeader>
 
@@ -248,7 +248,7 @@ export function IntegrationsPage() {
               </label>
               <Input
                 type="email"
-                placeholder="e.g. gbp-central@global360.com"
+                placeholder="e.g. gbp-central@insightsrank.com"
                 value={accountEmail}
                 onChange={(e) => setAccountEmail(e.target.value)}
                 className="bg-background border-border text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-blue-500 focus-visible:ring-0"

@@ -1,4 +1,4 @@
-# Global360
+# InsightsRank
 
 Enterprise Google Business Profile management for franchises, agencies, and multi-location brands.
 

@@ -4,7 +4,7 @@ import { OrganizationUnifiedPage } from "@/features/organization/organization-pa
 export const Route = createFileRoute("/organization")({
   head: () => ({
     meta: [
-      { title: "Organization Overview — Global360" },
+      { title: "Organization Overview — InsightsRank" },
       { name: "description", content: "Enterprise tenancy, account usage and governance posture." },
     ],
   }),

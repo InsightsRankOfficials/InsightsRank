@@ -4,7 +4,7 @@ import { OrganizationUnifiedPage } from "@/features/organization/organization-pa
 export const Route = createFileRoute("/organization/roles")({
   head: () => ({
     meta: [
-      { title: "Roles & permissions — Global360" },
+      { title: "Roles & permissions — InsightsRank" },
       { name: "description", content: "Control granular capabilities with reusable role policies." },
     ],
   }),

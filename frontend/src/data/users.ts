@@ -29,7 +29,7 @@ function buildUsers(): OrganizationUser[] {
       id: `usr_${(1000 + i).toString(36)}`,
       organizationId: DEFAULT_ORGANIZATION_ID,
       name,
-      email: `${name.toLowerCase().replace(/\s+/g, ".")}@global360.com`,
+      email: `${name.toLowerCase().replace(/\s+/g, ".")}@insightsrank.com`,
       role,
       teams: [...new Set(teams)],
       status: i % 11 === 0 ? "invited" : i % 17 === 0 ? "suspended" : "active",

@@ -71,7 +71,7 @@ export function EditProfileModal({
     supportEmail: isEdit ? "support@example.com" : "",
     supportUrl: isEdit ? "https://example.com/support" : "",
     reportingEmail: isEdit ? "pushkar.rana@ennigo.co.uk" : "",
-    websiteUrl: isEdit ? "https://global360.com/" : "",
+    websiteUrl: isEdit ? "https://insightsrank.com/" : "",
   });
 
   const [tags, setTags] = useState<string[]>(isEdit ? ["test"] : []);

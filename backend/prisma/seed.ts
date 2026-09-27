@@ -10,11 +10,11 @@ async function main() {
 
   // Create or update default development organization
   const organization = await prisma.organization.upsert({
-    where: { slug: 'global360-ops' },
+    where: { slug: 'insightsrank-ops' },
     update: {},
     create: {
-      name: 'Global360 Operations',
-      slug: 'global360-ops',
+      name: 'InsightsRank Operations',
+      slug: 'insightsrank-ops',
       status: 'ACTIVE',
     },
   });
@@ -23,7 +23,7 @@ async function main() {
 
   // Create default owner user
   const owner = await prisma.user.upsert({
-    where: { email: 'ops@global360.com' },
+    where: { email: 'ops@insightsrank.com' },
     update: {
       organizationId: organization.id,
       passwordHash,
@@ -31,9 +31,9 @@ async function main() {
     },
     create: {
       organizationId: organization.id,
-      email: 'ops@global360.com',
+      email: 'ops@insightsrank.com',
       passwordHash,
-      firstName: 'Global360',
+      firstName: 'InsightsRank',
       lastName: 'Operations',
       role: Role.OWNER,
       emailVerified: true,
@@ -45,7 +45,7 @@ async function main() {
 
   // Create default admin user
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@global360.com' },
+    where: { email: 'admin@insightsrank.com' },
     update: {
       organizationId: organization.id,
       passwordHash,
@@ -53,7 +53,7 @@ async function main() {
     },
     create: {
       organizationId: organization.id,
-      email: 'admin@global360.com',
+      email: 'admin@insightsrank.com',
       passwordHash,
       firstName: 'Admin',
       lastName: 'User',
@@ -67,7 +67,7 @@ async function main() {
 
   // Create default member user
   const member = await prisma.user.upsert({
-    where: { email: 'member@global360.com' },
+    where: { email: 'member@insightsrank.com' },
     update: {
       organizationId: organization.id,
       passwordHash,
@@ -75,7 +75,7 @@ async function main() {
     },
     create: {
       organizationId: organization.id,
-      email: 'member@global360.com',
+      email: 'member@insightsrank.com',
       passwordHash,
       firstName: 'Member',
       lastName: 'User',

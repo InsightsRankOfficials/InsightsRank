@@ -23,7 +23,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const getStoredUser = (): User | null => {
   try {
-    const rawUser = localStorage.getItem('global360_user');
+    const rawUser = localStorage.getItem('insightsrank_user');
     if (rawUser) {
       return JSON.parse(rawUser);
     }
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const currentUser = await authApi.me();
       if (currentUser) {
         setUser(currentUser);
-        localStorage.setItem('global360_user', JSON.stringify(currentUser));
+        localStorage.setItem('insightsrank_user', JSON.stringify(currentUser));
       }
     } catch {
       // Keep existing stored user if silent refresh fails
@@ -63,7 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         organizationId: 'org_1',
       };
       setUser(authenticatedUser);
-      localStorage.setItem('global360_user', JSON.stringify(authenticatedUser));
+      localStorage.setItem('insightsrank_user', JSON.stringify(authenticatedUser));
       return response;
     } catch (err: any) {
       const msg = err.message || 'Failed to sign in. Please check your credentials.';
@@ -91,7 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         organizationId: 'org_1',
       };
       setUser(registeredUser);
-      localStorage.setItem('global360_user', JSON.stringify(registeredUser));
+      localStorage.setItem('insightsrank_user', JSON.stringify(registeredUser));
       return response;
     } catch (err: any) {
       const msg = err.message || 'Failed to create account.';
@@ -106,10 +106,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } finally {
       setUser(null);
       setError(null);
-      localStorage.removeItem('global360_user');
-      localStorage.removeItem('global360_token');
-      localStorage.removeItem('global360_credentials');
-      sessionStorage.removeItem('global360_token');
+      localStorage.removeItem('insightsrank_user');
+      localStorage.removeItem('insightsrank_token');
+      localStorage.removeItem('insightsrank_credentials');
+      sessionStorage.removeItem('insightsrank_token');
     }
   };
 

@@ -5,10 +5,10 @@ export class OrganizationResponseDto {
   @ApiProperty({ example: 'org_12345' })
   id: string;
 
-  @ApiProperty({ example: 'Global360 Operations' })
+  @ApiProperty({ example: 'InsightsRank Operations' })
   name: string;
 
-  @ApiProperty({ example: 'global360-ops' })
+  @ApiProperty({ example: 'insightsrank-ops' })
   slug: string;
 }
 
@@ -16,10 +16,10 @@ export class UserResponseDto {
   @ApiProperty({ example: 'usr_12345' })
   id: string;
 
-  @ApiProperty({ example: 'ops@global360.com' })
+  @ApiProperty({ example: 'ops@insightsrank.com' })
   email: string;
 
-  @ApiProperty({ example: 'Global360', nullable: true })
+  @ApiProperty({ example: 'InsightsRank', nullable: true })
   firstName?: string;
 
   @ApiProperty({ example: 'Operations', nullable: true })

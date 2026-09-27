@@ -93,7 +93,7 @@ export function AppHeader({
             <SheetContent side="left" className="w-72 border-sidebar-border bg-sidebar p-0">
               <SheetHeader className="sr-only">
                 <SheetTitle>Navigation</SheetTitle>
-                <SheetDescription>Open the Global360 navigation.</SheetDescription>
+                <SheetDescription>Open the InsightsRank navigation.</SheetDescription>
               </SheetHeader>
               <AppSidebar
                 collapsed={false}

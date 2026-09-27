@@ -1,7 +1,7 @@
-# Global360 — System Architecture Documentation
+# InsightsRank — System Architecture Documentation
 
 ## 1. System Overview
-Global360 is an enterprise-grade multi-tenant Google Business Profile (GBP) management platform designed for multi-location brands, franchises, and agencies. 
+InsightsRank is an enterprise-grade multi-tenant Google Business Profile (GBP) management platform designed for multi-location brands, franchises, and agencies. 
 
 The architecture follows a **Modular Monolith + Separate Workers** model. The application consists of a single codebase structured into distinct, decoupled domain modules that communicate via clear internal interfaces. This allows rapid development, straightforward deployment, and seamless extraction of individual services into microservices or background workers as scale requires.
 

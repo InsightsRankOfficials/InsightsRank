@@ -522,7 +522,7 @@ export function OrganizationUsersTab() {
               <input
                 type="email"
                 required
-                placeholder="diya.patel@global360.com"
+                placeholder="diya.patel@insightsrank.com"
                 value={inviteForm.email}
                 onChange={(e) => setInviteForm({ ...inviteForm, email: e.target.value })}
                 className="w-full h-8 px-3 rounded-md bg-background border border-border text-foreground focus:border-blue-500 focus:outline-none"

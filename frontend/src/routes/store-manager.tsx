@@ -4,9 +4,9 @@ import { StoreManagerPage } from "@/features/store-manager/store-manager-page";
 export const Route = createFileRoute("/store-manager")({
   head: () => ({
     meta: [
-      { title: "Store Manager — Global360" },
+      { title: "Store Manager — InsightsRank" },
       { name: "description", content: "Manage store locations requests and store manager accounts." },
-      { property: "og:title", content: "Store Manager — Global360" },
+      { property: "og:title", content: "Store Manager — InsightsRank" },
       { property: "og:description", content: "Manage store locations requests and store manager accounts." },
     ],
   }),

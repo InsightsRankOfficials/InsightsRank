@@ -53,7 +53,7 @@ function LoginPage() {
     setIsSubmitting(true);
     try {
       await login(loginEmail, loginPassword);
-      toast.success("Welcome back to Global360!");
+      toast.success("Welcome back to InsightsRank!");
       navigate({ to: "/" });
     } catch (err: any) {
       setErrorMessage(err.message || "Invalid email or password.");
@@ -106,7 +106,7 @@ function LoginPage() {
             <ShieldCheck className="h-7 w-7" />
           </div>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground">
-            Global360
+            InsightsRank
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Google Business Profile Intelligence Platform

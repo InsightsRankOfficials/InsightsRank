@@ -79,7 +79,7 @@ export function ReviewsResponseTemplatesTab() {
     Product_Name: "Sports Shoes",
     Promo_Code: "DISCOUNT10",
     Order_ID: "ORD-98214",
-    Support_Email: "support@global360.com",
+    Support_Email: "support@insightsrank.com",
     Campaign_Name: "Summer Sale 2026",
   });
 

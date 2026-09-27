@@ -76,10 +76,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Global360 — Enterprise GBP Management" },
+      { title: "InsightsRank — Enterprise GBP Management" },
       { name: "description", content: "Enterprise Google Business Profile management for franchises, agencies and multi-location brands." },
-      { name: "author", content: "Global360" },
-      { property: "og:title", content: "Global360 — Enterprise GBP Management" },
+      { name: "author", content: "InsightsRank" },
+      { property: "og:title", content: "InsightsRank — Enterprise GBP Management" },
       { property: "og:description", content: "Enterprise Google Business Profile management for franchises, agencies and multi-location brands." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -140,7 +140,7 @@ function AppContent() {
           <Loader2 className="h-6 w-6 animate-spin text-primary" />
         </div>
         <p className="text-xs font-medium text-muted-foreground animate-pulse">
-          Loading Global360...
+          Loading InsightsRank...
         </p>
       </div>
     );

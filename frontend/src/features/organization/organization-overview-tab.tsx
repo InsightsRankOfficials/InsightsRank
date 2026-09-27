@@ -33,7 +33,7 @@ export function OrganizationOverviewTab({ onNavigateTab }: OrganizationOverviewT
 
   // Organization Tenancy Editable State
   const [orgData, setOrgData] = useState({
-    name: organization.name || "Global360 Officials",
+    name: organization.name || "InsightsRank Officials",
     plan: organization.plan || "enterprise",
     region: "India (Mumbai)",
     storageUsedGb: organization.storageUsedGb || 42,

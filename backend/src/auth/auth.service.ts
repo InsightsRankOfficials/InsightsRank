@@ -145,7 +145,7 @@ export class AuthService {
     const cookieSecure = this.configService.get<boolean>('cookie.secure') ?? isProduction;
     const sameSite = this.configService.get<string>('cookie.sameSite') || (isProduction ? 'none' : 'lax');
 
-    res.cookie('global360_access_token', token, {
+    res.cookie('insightsrank_access_token', token, {
       httpOnly: true,
       secure: cookieSecure,
       sameSite: sameSite as any,
@@ -155,7 +155,7 @@ export class AuthService {
   }
 
   private clearAuthCookie(res: Response) {
-    res.clearCookie('global360_access_token', {
+    res.clearCookie('insightsrank_access_token', {
       path: '/',
     });
   }

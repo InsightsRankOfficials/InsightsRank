@@ -2,22 +2,22 @@ services:
 
   postgres:
     image: postgres:16
-    container_name: global360-postgres
+    container_name: insightsrank-postgres
     restart: unless-stopped
 
     environment:
-      POSTGRES_DB: global360
-      POSTGRES_USER: global360_user
-      POSTGRES_PASSWORD: global360_dev_password
+      POSTGRES_DB: insightsrank
+      POSTGRES_USER: insightsrank_user
+      POSTGRES_PASSWORD: insightsrank_dev_password
 
     ports:
       - "5432:5432"
 
     volumes:
-      - global360_postgres_data:/var/lib/postgresql/data
+      - insightsrank_postgres_data:/var/lib/postgresql/data
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U global360_user -d global360"]
+      test: ["CMD-SHELL", "pg_isready -U insightsrank_user -d insightsrank"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -25,14 +25,14 @@ services:
 
   redis:
     image: redis:7
-    container_name: global360-redis
+    container_name: insightsrank-redis
     restart: unless-stopped
 
     ports:
       - "6379:6379"
 
     volumes:
-      - global360_redis_data:/data
+      - insightsrank_redis_data:/data
 
     command: redis-server --appendonly yes
 
@@ -45,8 +45,8 @@ services:
 
 volumes:
 
-  global360_postgres_data:
-    name: global360_postgres_data
+  insightsrank_postgres_data:
+    name: insightsrank_postgres_data
 
-  global360_redis_data:
-    name: global360_redis_data
+  insightsrank_redis_data:
+    name: insightsrank_redis_data

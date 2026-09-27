@@ -28,7 +28,7 @@ export function createPost(payload: Partial<Post>): Promise<Post> {
   return request("POST /posts", () => {
     const post: Post = {
       id: `post_${Date.now()}`,
-      organizationId: payload.organizationId ?? "org_global360",
+      organizationId: payload.organizationId ?? "org_insightsrank",
       title: payload.title ?? "Untitled post",
       body: payload.body ?? "",
       type: payload.type ?? "whats_new",

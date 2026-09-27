@@ -5,7 +5,7 @@
  */
 
 export const APP = {
-  name: "Global360",
+  name: "InsightsRank",
   tagline: "Google Business Profile intelligence at scale",
   /** Simulated backend latency window (ms) for the mock repositories. */
   mockLatency: [180, 620] as const,

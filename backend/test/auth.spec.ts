@@ -39,13 +39,13 @@ describe('Auth & Health API (e2e)', () => {
     const res = await request(app.getHttpServer())
       .post('/api/v1/auth/login')
       .send({
-        email: 'ops@global360.com',
+        email: 'ops@insightsrank.com',
         password: 'Password123!',
       })
       .expect(200);
 
     expect(res.body.success).toBe(true);
-    expect(res.body.data.user.email).toBe('ops@global360.com');
+    expect(res.body.data.user.email).toBe('ops@insightsrank.com');
     expect(res.body.data.user.role).toBe('OWNER');
     expect(res.body.data.accessToken).toBeDefined();
   });
@@ -54,7 +54,7 @@ describe('Auth & Health API (e2e)', () => {
     const res = await request(app.getHttpServer())
       .post('/api/v1/auth/login')
       .send({
-        email: 'ops@global360.com',
+        email: 'ops@insightsrank.com',
         password: 'WrongPassword!',
       })
       .expect(401);
@@ -67,7 +67,7 @@ describe('Auth & Health API (e2e)', () => {
     const loginRes = await request(app.getHttpServer())
       .post('/api/v1/auth/login')
       .send({
-        email: 'ops@global360.com',
+        email: 'ops@insightsrank.com',
         password: 'Password123!',
       });
 
@@ -79,6 +79,6 @@ describe('Auth & Health API (e2e)', () => {
       .expect(200);
 
     expect(meRes.body.success).toBe(true);
-    expect(meRes.body.data.email).toBe('ops@global360.com');
+    expect(meRes.body.data.email).toBe('ops@insightsrank.com');
   });
 });

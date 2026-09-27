@@ -137,7 +137,7 @@ function buildLocations(): LocationDetail[] {
       services: [...SERVICES].slice(0, intBetween(rng, 2, 5)),
       hours: buildHours(rng),
       googleLocationId: `accounts/1128${intBetween(rng, 100000, 999999)}/locations/${intBetween(rng, 100000000, 999999999)}`,
-      googleAccount: pick(rng, ["ops@global360.com", "gbp-north@global360.com", "gbp-south@global360.com"]),
+      googleAccount: pick(rng, ["ops@insightsrank.com", "gbp-north@insightsrank.com", "gbp-south@insightsrank.com"]),
       impressions: intBetween(rng, 4_000, 210_000),
       calls: intBetween(rng, 40, 4_200),
       websiteClicks: intBetween(rng, 90, 9_800),

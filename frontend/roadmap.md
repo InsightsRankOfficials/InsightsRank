@@ -1,4 +1,4 @@
-# Global360 implementation roadmap
+# InsightsRank implementation roadmap
 
 - [x] Enterprise design tokens and dark visual system
 - [x] Typed domain models, deterministic datasets, service and hook layers
