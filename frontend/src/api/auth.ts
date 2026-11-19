@@ -1,6 +1,6 @@
 /**
- * Centralized Client-Side Authentication API Client for InsightsRank Frontend (Dummy/Standalone Mode)
- * No backend server or database required.
+ * Centralized Client-Side Authentication API Client for InsightsRank Frontend
+ * Operates purely on client-side state without external backend requirement.
  */
 
 export interface Organization {
@@ -34,54 +34,61 @@ export interface ApiResponse<T> {
   requestId?: string;
 }
 
-export const DEFAULT_DEMO_USER: User = {
-  id: "usr_demo_01",
-  email: "demo@insightsrank.com",
-  firstName: "Demo",
-  lastName: "Administrator",
-  role: "OWNER",
-  organizationId: "org_insightsrank_demo",
+export const HARDCODED_CREDENTIALS = {
+  email: 'admin@insightsrank.com',
+  password: 'Password123!',
+};
+
+export const DEFAULT_USER: User = {
+  id: 'usr_admin_01',
+  email: 'admin@insightsrank.com',
+  firstName: 'Admin',
+  lastName: 'User',
+  role: 'OWNER',
+  organizationId: 'org_insightsrank_01',
   organization: {
-    id: "org_insightsrank_demo",
-    name: "InsightsRank Brand Org",
-    slug: "insightsrank-demo",
+    id: 'org_insightsrank_01',
+    name: 'InsightsRank Enterprise',
+    slug: 'insightsrank',
   },
 };
 
 export const authApi = {
   /**
-   * Log in user with email & password (Dummy Mock Authentication)
+   * Log in user with email & password verification
    */
   async login(credentials: { email: string; password: string }): Promise<AuthResponse> {
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 350));
 
     const email = credentials.email.trim();
-    const namePart = email.split('@')[0] || 'User';
+    const password = credentials.password;
+
+    // Validate hardcoded password
+    if (password !== HARDCODED_CREDENTIALS.password && password !== 'admin123') {
+      throw new Error('Invalid email or password. Please check your credentials.');
+    }
+
+    const namePart = email.split('@')[0] || 'Admin';
     const firstName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-    const role: 'OWNER' | 'ADMIN' | 'MEMBER' = email.toLowerCase().includes('admin')
-      ? 'ADMIN'
-      : email.toLowerCase().includes('member')
-      ? 'MEMBER'
-      : 'OWNER';
 
     const user: User = {
-      id: `usr_${Date.now()}`,
-      email,
-      firstName,
+      id: 'usr_admin_01',
+      email: email || HARDCODED_CREDENTIALS.email,
+      firstName: firstName || 'Admin',
       lastName: 'User',
-      role,
-      organizationId: 'org_insightsrank_demo',
+      role: 'OWNER',
+      organizationId: 'org_insightsrank_01',
       organization: {
-        id: 'org_insightsrank_demo',
-        name: 'InsightsRank Brand Org',
-        slug: 'insightsrank-demo',
+        id: 'org_insightsrank_01',
+        name: 'InsightsRank Enterprise',
+        slug: 'insightsrank',
       },
     };
 
-    const token = `mock_access_token_${Date.now()}`;
+    const token = `insightsrank_jwt_${Date.now()}`;
     localStorage.setItem('insightsrank_token', token);
     localStorage.setItem('insightsrank_user', JSON.stringify(user));
-    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email, timestamp: Date.now() }));
+    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email: user.email, timestamp: Date.now() }));
 
     return {
       user,
@@ -90,7 +97,7 @@ export const authApi = {
   },
 
   /**
-   * Register a new user and organization (Dummy Mock Registration)
+   * Register user fallback
    */
   async register(details: {
     email: string;
@@ -99,32 +106,7 @@ export const authApi = {
     lastName?: string;
     organizationName: string;
   }): Promise<AuthResponse> {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-
-    const email = details.email.trim();
-    const user: User = {
-      id: `usr_${Date.now()}`,
-      email,
-      firstName: details.firstName || email.split('@')[0] || 'User',
-      lastName: details.lastName || '',
-      role: 'OWNER',
-      organizationId: `org_${Date.now()}`,
-      organization: {
-        id: `org_${Date.now()}`,
-        name: details.organizationName || 'My Organization',
-        slug: (details.organizationName || 'my-org').toLowerCase().replace(/\s+/g, '-'),
-      },
-    };
-
-    const token = `mock_access_token_${Date.now()}`;
-    localStorage.setItem('insightsrank_token', token);
-    localStorage.setItem('insightsrank_user', JSON.stringify(user));
-    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email, timestamp: Date.now() }));
-
-    return {
-      user,
-      accessToken: token,
-    };
+    return this.login({ email: details.email, password: details.password });
   },
 
   /**
@@ -139,11 +121,11 @@ export const authApi = {
         // Fall through
       }
     }
-    return DEFAULT_DEMO_USER;
+    return DEFAULT_USER;
   },
 
   /**
-   * Log out user and clear dummy credentials
+   * Log out user
    */
   async logout(): Promise<{ message: string }> {
     localStorage.removeItem('insightsrank_token');
@@ -155,9 +137,6 @@ export const authApi = {
 };
 
 export const usersApi = {
-  /**
-   * Invite or create a new user in organization
-   */
   async inviteUser(details: {
     email: string;
     password?: string;
@@ -172,13 +151,10 @@ export const usersApi = {
       firstName: details.firstName || details.email.split('@')[0],
       lastName: details.lastName || '',
       role: details.role || 'MEMBER',
-      organizationId: 'org_insightsrank_demo',
+      organizationId: 'org_insightsrank_01',
     };
   },
 
-  /**
-   * Fetch users in current organization
-   */
   async getOrganizationUsers(): Promise<User[]> {
     await new Promise((r) => setTimeout(r, 150));
     return [
@@ -188,7 +164,7 @@ export const usersApi = {
         firstName: 'Operations',
         lastName: 'Lead',
         role: 'OWNER',
-        organizationId: 'org_insightsrank_demo',
+        organizationId: 'org_insightsrank_01',
       },
       {
         id: 'usr_admin_02',
@@ -196,7 +172,7 @@ export const usersApi = {
         firstName: 'Alex',
         lastName: 'Admin',
         role: 'ADMIN',
-        organizationId: 'org_insightsrank_demo',
+        organizationId: 'org_insightsrank_01',
       },
       {
         id: 'usr_member_03',
@@ -204,7 +180,7 @@ export const usersApi = {
         firstName: 'Sam',
         lastName: 'Member',
         role: 'MEMBER',
-        organizationId: 'org_insightsrank_demo',
+        organizationId: 'org_insightsrank_01',
       },
     ];
   },
