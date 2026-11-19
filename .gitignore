@@ -71,3 +71,5 @@ backend/prisma/*.sqlite
 # Temporary & scratch files
 scratch/
 **/scratch/
+.vercel
+.env*
