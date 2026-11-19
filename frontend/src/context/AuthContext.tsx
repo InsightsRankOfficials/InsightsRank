@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { authApi, User, AuthResponse } from '../api/auth';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { authApi, User, AuthResponse, DEFAULT_DEMO_USER } from '../api/auth';
 
 interface AuthContextType {
   user: User | null;
@@ -22,6 +22,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const getStoredUser = (): User | null => {
+  if (typeof window === 'undefined') return null;
   try {
     const rawUser = localStorage.getItem('insightsrank_user');
     if (rawUser) {
@@ -46,29 +47,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem('insightsrank_user', JSON.stringify(currentUser));
       }
     } catch {
-      // Keep existing stored user if silent refresh fails
+      // Keep existing stored user if refresh fails
     }
   }, []);
 
   const login = async (email: string, password: string) => {
     setError(null);
+    setIsLoading(true);
     try {
       const response = await authApi.login({ email, password });
-      const authenticatedUser = response.user || {
-        id: 'usr_' + Date.now(),
-        email,
-        firstName: email.split('@')[0],
-        lastName: '',
-        role: 'OWNER',
-        organizationId: 'org_1',
-      };
-      setUser(authenticatedUser);
-      localStorage.setItem('insightsrank_user', JSON.stringify(authenticatedUser));
+      setUser(response.user);
       return response;
     } catch (err: any) {
-      const msg = err.message || 'Failed to sign in. Please check your credentials.';
+      const msg = err?.message || 'Failed to sign in. Please check your credentials.';
       setError(msg);
       throw err;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,36 +75,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     organizationName: string;
   }) => {
     setError(null);
+    setIsLoading(true);
     try {
       const response = await authApi.register(details);
-      const registeredUser = response.user || {
-        id: 'usr_' + Date.now(),
-        email: details.email,
-        firstName: details.firstName || details.email.split('@')[0],
-        lastName: details.lastName || '',
-        role: 'OWNER',
-        organizationId: 'org_1',
-      };
-      setUser(registeredUser);
-      localStorage.setItem('insightsrank_user', JSON.stringify(registeredUser));
+      setUser(response.user);
       return response;
     } catch (err: any) {
-      const msg = err.message || 'Failed to create account.';
+      const msg = err?.message || 'Failed to create account.';
       setError(msg);
       throw err;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const logout = async () => {
+    setIsLoading(true);
     try {
       await authApi.logout();
     } finally {
       setUser(null);
       setError(null);
-      localStorage.removeItem('insightsrank_user');
-      localStorage.removeItem('insightsrank_token');
-      localStorage.removeItem('insightsrank_credentials');
-      sessionStorage.removeItem('insightsrank_token');
+      setIsLoading(false);
     }
   };
 
@@ -141,4 +128,3 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
-

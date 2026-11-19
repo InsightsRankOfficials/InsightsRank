@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Eye, EyeOff, Lock, Mail, Building2, User as UserIcon, Loader2, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, Building2, User as UserIcon, Loader2, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
@@ -23,9 +23,9 @@ function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Login form state
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  // Login form state - prefilled with demo credentials for instant 1-click test
+  const [loginEmail, setLoginEmail] = useState("admin@insightsrank.com");
+  const [loginPassword, setLoginPassword] = useState("Password123!");
 
   // Register form state
   const [regEmail, setRegEmail] = useState("");
@@ -41,22 +41,25 @@ function LoginPage() {
     }
   }, [isAuthenticated, authLoading, navigate]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (e?: React.FormEvent, overrideEmail?: string, overridePassword?: string) => {
+    if (e) e.preventDefault();
     setErrorMessage(null);
 
-    if (!loginEmail || !loginPassword) {
+    const email = overrideEmail || loginEmail;
+    const password = overridePassword || loginPassword;
+
+    if (!email || !password) {
       setErrorMessage("Please enter both email and password.");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      await login(loginEmail, loginPassword);
+      await login(email, password);
       toast.success("Welcome back to InsightsRank!");
       navigate({ to: "/" });
     } catch (err: any) {
-      setErrorMessage(err.message || "Invalid email or password.");
+      setErrorMessage(err?.message || "Invalid credentials.");
     } finally {
       setIsSubmitting(false);
     }
@@ -68,11 +71,6 @@ function LoginPage() {
 
     if (!regEmail || !regPassword || !regOrgName) {
       setErrorMessage("Please fill in all required fields (Email, Password, Organization).");
-      return;
-    }
-
-    if (regPassword.length < 8) {
-      setErrorMessage("Password must be at least 8 characters long.");
       return;
     }
 
@@ -88,7 +86,7 @@ function LoginPage() {
       toast.success("Account & Organization created successfully!");
       navigate({ to: "/" });
     } catch (err: any) {
-      setErrorMessage(err.message || "Registration failed. Email may already be registered.");
+      setErrorMessage(err?.message || "Registration failed.");
     } finally {
       setIsSubmitting(false);
     }
@@ -111,87 +109,228 @@ function LoginPage() {
           <p className="mt-1 text-sm text-muted-foreground">
             Google Business Profile Intelligence Platform
           </p>
+          <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <CheckCircle2 className="h-3.5 w-3.5" />
+            Dummy Mode (Frontend Only — No Backend Needed)
+          </div>
         </div>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10 px-4 sm:px-0">
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md z-10 px-4 sm:px-0">
         <Card className="border-border/60 bg-card/80 backdrop-blur-xl shadow-2xl">
-          <CardHeader className="space-y-1 pb-4">
-            <CardTitle className="text-xl text-center font-semibold">
-              Sign in to your account
+          <CardHeader className="space-y-1 pb-3 text-center">
+            <CardTitle className="text-xl font-semibold">
+              Portal Access
             </CardTitle>
-            <CardDescription className="text-center text-xs">
-              Enter your credentials to access your multi-tenant portal
+            <CardDescription className="text-xs">
+              Sign in with any credentials or click Quick Demo Sign-In
             </CardDescription>
           </CardHeader>
-          <CardContent>
+
+          <CardContent className="space-y-4">
             {errorMessage && (
-              <Alert variant="destructive" className="mb-4 text-xs py-2">
+              <Alert variant="destructive" className="text-xs py-2">
                 <AlertTitle className="text-xs font-semibold">Authentication Error</AlertTitle>
                 <AlertDescription>{errorMessage}</AlertDescription>
               </Alert>
             )}
 
+            <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as "login" | "register")}>
+              <TabsList className="grid w-full grid-cols-2 mb-4">
+                <TabsTrigger value="login" className="text-xs">Sign In</TabsTrigger>
+                <TabsTrigger value="register" className="text-xs">Register</TabsTrigger>
+              </TabsList>
 
+              <TabsContent value="login" className="space-y-4">
+                <form onSubmit={(e) => handleLogin(e)} className="space-y-3">
+                  <div className="space-y-1">
+                    <Label htmlFor="login-email" className="text-xs font-medium">Email address</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="login-email"
+                        type="email"
+                        placeholder="user@organization.com"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        className="pl-9 text-xs"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </div>
 
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-1">
-                <Label htmlFor="login-email" className="text-xs font-medium">Email address</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="login-email"
-                    type="email"
-                    placeholder="user@organization.com"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    className="pl-9 text-xs"
-                    required
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="login-password" className="text-xs font-medium">Password</Label>
+                    </div>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="login-password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                        className="pl-9 pr-9 text-xs"
+                        required
+                        disabled={isSubmitting}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground focus:outline-none"
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full text-xs font-medium mt-2"
                     disabled={isSubmitting}
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="login-password" className="text-xs font-medium">Password</Label>
-                </div>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="login-password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    className="pl-9 pr-9 text-xs"
-                    required
-                    disabled={isSubmitting}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground focus:outline-none"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in...
+                      </>
+                    ) : (
+                      "Sign In"
+                    )}
+                  </Button>
+                </form>
 
-              <Button
-                type="submit"
-                className="w-full text-xs font-medium mt-2"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in...
-                  </>
-                ) : (
-                  "Sign In"
-                )}
-              </Button>
-            </form>
+                {/* 1-Click Demo Account Quick Action Buttons */}
+                <div className="relative my-4">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-border/60" />
+                  </div>
+                  <div className="relative flex justify-center text-[10px] uppercase">
+                    <span className="bg-card px-2 text-muted-foreground">Quick 1-Click Access</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="text-[11px] h-8"
+                    disabled={isSubmitting}
+                    onClick={() => handleLogin(undefined, "admin@insightsrank.com", "Password123!")}
+                  >
+                    <Sparkles className="mr-1.5 h-3.5 w-3.5 text-amber-500" /> Demo Admin
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="text-[11px] h-8"
+                    disabled={isSubmitting}
+                    onClick={() => handleLogin(undefined, "ops@insightsrank.com", "Password123!")}
+                  >
+                    <ShieldCheck className="mr-1.5 h-3.5 w-3.5 text-blue-500" /> Demo Owner
+                  </Button>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="register" className="space-y-3">
+                <form onSubmit={handleRegister} className="space-y-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="reg-first" className="text-xs font-medium">First name</Label>
+                      <Input
+                        id="reg-first"
+                        type="text"
+                        placeholder="John"
+                        value={regFirstName}
+                        onChange={(e) => setRegFirstName(e.target.value)}
+                        className="text-xs"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="reg-last" className="text-xs font-medium">Last name</Label>
+                      <Input
+                        id="reg-last"
+                        type="text"
+                        placeholder="Doe"
+                        value={regLastName}
+                        onChange={(e) => setRegLastName(e.target.value)}
+                        className="text-xs"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <Label htmlFor="reg-org" className="text-xs font-medium">Organization name</Label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="reg-org"
+                        type="text"
+                        placeholder="Acme Franchise Group"
+                        value={regOrgName}
+                        onChange={(e) => setRegOrgName(e.target.value)}
+                        className="pl-9 text-xs"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <Label htmlFor="reg-email" className="text-xs font-medium">Work email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="reg-email"
+                        type="email"
+                        placeholder="john@acme.com"
+                        value={regEmail}
+                        onChange={(e) => setRegEmail(e.target.value)}
+                        className="pl-9 text-xs"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <Label htmlFor="reg-password" className="text-xs font-medium">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="reg-password"
+                        type="password"
+                        placeholder="••••••••"
+                        value={regPassword}
+                        onChange={(e) => setRegPassword(e.target.value)}
+                        className="pl-9 text-xs"
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full text-xs font-medium mt-3"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creating Account...
+                      </>
+                    ) : (
+                      "Create Demo Account"
+                    )}
+                  </Button>
+                </form>
+              </TabsContent>
+            </Tabs>
           </CardContent>
         </Card>
       </div>

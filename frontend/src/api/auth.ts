@@ -1,5 +1,6 @@
 /**
- * Centralized Authentication API Client for InsightsRank Frontend
+ * Centralized Client-Side Authentication API Client for InsightsRank Frontend (Dummy/Standalone Mode)
+ * No backend server or database required.
  */
 
 export interface Organization {
@@ -33,84 +34,63 @@ export interface ApiResponse<T> {
   requestId?: string;
 }
 
-// Configurable API base URL with fallback to deployed InsightsRank backend server
-const API_BASE_URL =
-  (import.meta.env.VITE_API_BASE_URL as string) || 'https://insightsrank-backend.onrender.com/api/v1';
-
-/**
- * Standard HTTP request wrapper supporting HttpOnly cookies and JSON payloads.
- */
-async function apiRequest<T>(
-  endpoint: string,
-  options: RequestInit = {},
-): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-
-  const defaultHeaders: Record<string, string> = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  };
-
-  // If access token stored in localStorage/sessionStorage, attach Bearer header
-  const token = localStorage.getItem('insightsrank_token') || sessionStorage.getItem('insightsrank_token');
-  if (token) {
-    defaultHeaders['Authorization'] = `Bearer ${token}`;
-  }
-
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers,
-    },
-    credentials: 'include', // Include HttpOnly auth cookies
-  });
-
-  const payload: ApiResponse<T> = await response.json().catch(() => ({
-    success: false,
-    error: {
-      code: 'INVALID_RESPONSE',
-      message: 'Server returned an invalid response',
-    },
-  }));
-
-  if (!response.ok || !payload.success) {
-    const errorMessage =
-      payload.error?.message ||
-      (response.status === 401
-        ? 'Invalid email or password'
-        : `Request failed with status ${response.status}`);
-    const error = new Error(errorMessage) as Error & { code?: string };
-    error.code = payload.error?.code || 'AUTH_ERROR';
-    throw error;
-  }
-
-  return payload.data as T;
-}
+export const DEFAULT_DEMO_USER: User = {
+  id: "usr_demo_01",
+  email: "demo@insightsrank.com",
+  firstName: "Demo",
+  lastName: "Administrator",
+  role: "OWNER",
+  organizationId: "org_insightsrank_demo",
+  organization: {
+    id: "org_insightsrank_demo",
+    name: "InsightsRank Brand Org",
+    slug: "insightsrank-demo",
+  },
+};
 
 export const authApi = {
   /**
-   * Log in user with email & password
+   * Log in user with email & password (Dummy Mock Authentication)
    */
   async login(credentials: { email: string; password: string }): Promise<AuthResponse> {
-    const data = await apiRequest<AuthResponse>('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-    });
-    const token = data.accessToken || (data as any).token;
-    if (token) {
-      localStorage.setItem('insightsrank_token', token);
-      sessionStorage.setItem('insightsrank_token', token);
-    }
-    if (data.user) {
-      localStorage.setItem('insightsrank_user', JSON.stringify(data.user));
-    }
-    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email: credentials.email, timestamp: Date.now() }));
-    return data;
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    const email = credentials.email.trim();
+    const namePart = email.split('@')[0] || 'User';
+    const firstName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    const role: 'OWNER' | 'ADMIN' | 'MEMBER' = email.toLowerCase().includes('admin')
+      ? 'ADMIN'
+      : email.toLowerCase().includes('member')
+      ? 'MEMBER'
+      : 'OWNER';
+
+    const user: User = {
+      id: `usr_${Date.now()}`,
+      email,
+      firstName,
+      lastName: 'User',
+      role,
+      organizationId: 'org_insightsrank_demo',
+      organization: {
+        id: 'org_insightsrank_demo',
+        name: 'InsightsRank Brand Org',
+        slug: 'insightsrank-demo',
+      },
+    };
+
+    const token = `mock_access_token_${Date.now()}`;
+    localStorage.setItem('insightsrank_token', token);
+    localStorage.setItem('insightsrank_user', JSON.stringify(user));
+    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email, timestamp: Date.now() }));
+
+    return {
+      user,
+      accessToken: token,
+    };
   },
 
   /**
-   * Register a new user and organization
+   * Register a new user and organization (Dummy Mock Registration)
    */
   async register(details: {
     email: string;
@@ -119,54 +99,64 @@ export const authApi = {
     lastName?: string;
     organizationName: string;
   }): Promise<AuthResponse> {
-    const data = await apiRequest<AuthResponse>('/auth/register', {
-      method: 'POST',
-      body: JSON.stringify(details),
-    });
-    const token = data.accessToken || (data as any).token;
-    if (token) {
-      localStorage.setItem('insightsrank_token', token);
-      sessionStorage.setItem('insightsrank_token', token);
-    }
-    if (data.user) {
-      localStorage.setItem('insightsrank_user', JSON.stringify(data.user));
-    }
-    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email: details.email, timestamp: Date.now() }));
-    return data;
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    const email = details.email.trim();
+    const user: User = {
+      id: `usr_${Date.now()}`,
+      email,
+      firstName: details.firstName || email.split('@')[0] || 'User',
+      lastName: details.lastName || '',
+      role: 'OWNER',
+      organizationId: `org_${Date.now()}`,
+      organization: {
+        id: `org_${Date.now()}`,
+        name: details.organizationName || 'My Organization',
+        slug: (details.organizationName || 'my-org').toLowerCase().replace(/\s+/g, '-'),
+      },
+    };
+
+    const token = `mock_access_token_${Date.now()}`;
+    localStorage.setItem('insightsrank_token', token);
+    localStorage.setItem('insightsrank_user', JSON.stringify(user));
+    localStorage.setItem('insightsrank_credentials', JSON.stringify({ email, timestamp: Date.now() }));
+
+    return {
+      user,
+      accessToken: token,
+    };
   },
 
   /**
    * Get current authenticated user session
    */
   async me(): Promise<User> {
-    return apiRequest<User>('/auth/me', {
-      method: 'GET',
-    });
+    const stored = localStorage.getItem('insightsrank_user');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        // Fall through
+      }
+    }
+    return DEFAULT_DEMO_USER;
   },
 
   /**
-   * Log out user and clear authentication session/cookies
+   * Log out user and clear dummy credentials
    */
   async logout(): Promise<{ message: string }> {
-    try {
-      await apiRequest<{ message: string }>('/auth/logout', {
-        method: 'POST',
-      });
-    } catch {
-      // Ignore errors on network disconnect
-    } finally {
-      localStorage.removeItem('insightsrank_token');
-      localStorage.removeItem('insightsrank_user');
-      localStorage.removeItem('insightsrank_credentials');
-      sessionStorage.removeItem('insightsrank_token');
-    }
+    localStorage.removeItem('insightsrank_token');
+    localStorage.removeItem('insightsrank_user');
+    localStorage.removeItem('insightsrank_credentials');
+    sessionStorage.removeItem('insightsrank_token');
     return { message: 'Logged out' };
   },
 };
 
 export const usersApi = {
   /**
-   * Invite or create a new user in the organization database
+   * Invite or create a new user in organization
    */
   async inviteUser(details: {
     email: string;
@@ -175,18 +165,47 @@ export const usersApi = {
     lastName?: string;
     role?: 'OWNER' | 'ADMIN' | 'MEMBER';
   }): Promise<User> {
-    return apiRequest<User>('/users/invite', {
-      method: 'POST',
-      body: JSON.stringify(details),
-    });
+    await new Promise((r) => setTimeout(r, 150));
+    return {
+      id: `usr_${Date.now()}`,
+      email: details.email,
+      firstName: details.firstName || details.email.split('@')[0],
+      lastName: details.lastName || '',
+      role: details.role || 'MEMBER',
+      organizationId: 'org_insightsrank_demo',
+    };
   },
 
   /**
-   * Fetch all users in current organization from database
+   * Fetch users in current organization
    */
   async getOrganizationUsers(): Promise<User[]> {
-    return apiRequest<User[]>('/users', {
-      method: 'GET',
-    });
+    await new Promise((r) => setTimeout(r, 150));
+    return [
+      {
+        id: 'usr_owner_01',
+        email: 'ops@insightsrank.com',
+        firstName: 'Operations',
+        lastName: 'Lead',
+        role: 'OWNER',
+        organizationId: 'org_insightsrank_demo',
+      },
+      {
+        id: 'usr_admin_02',
+        email: 'admin@insightsrank.com',
+        firstName: 'Alex',
+        lastName: 'Admin',
+        role: 'ADMIN',
+        organizationId: 'org_insightsrank_demo',
+      },
+      {
+        id: 'usr_member_03',
+        email: 'member@insightsrank.com',
+        firstName: 'Sam',
+        lastName: 'Member',
+        role: 'MEMBER',
+        organizationId: 'org_insightsrank_demo',
+      },
+    ];
   },
 };
