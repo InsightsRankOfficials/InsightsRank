@@ -26,17 +26,14 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
     <div className="flex h-full flex-col bg-sidebar">
       <div
         className={cn(
-          "flex h-14 shrink-0 items-center gap-2 border-b border-sidebar-border px-3",
-          isCollapsed && "justify-center px-0",
+          "flex h-14 shrink-0 items-center justify-center border-b border-sidebar-border px-3",
+          isCollapsed ? "px-0" : "px-4",
         )}
       >
         <Link
           to="/"
           onClick={onNavigate}
-          className={cn(
-            "flex min-w-0 items-center rounded-md px-1.5 py-1 transition-opacity hover:opacity-90",
-            isCollapsed ? "justify-center" : "gap-2.5",
-          )}
+          className="flex w-full items-center justify-center rounded-md py-1 transition-opacity hover:opacity-90"
           aria-label={`${APP.name} home`}
         >
           {isCollapsed ? (
@@ -46,16 +43,16 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
               className="size-7 object-contain select-none"
             />
           ) : (
-            <div className="flex h-8 items-center">
+            <div className="flex h-8 w-full items-center justify-center">
               <img
                 src="/images/logo-light.png"
                 alt="InsightsRank"
-                className="h-6 w-auto dark:hidden block object-contain select-none"
+                className="h-6.5 max-h-7 w-auto max-w-[175px] dark:hidden block object-contain select-none mx-auto"
               />
               <img
                 src="/images/logo-dark.png"
                 alt="InsightsRank"
-                className="h-6 w-auto hidden dark:block object-contain select-none"
+                className="h-6.5 max-h-7 w-auto max-w-[175px] hidden dark:block object-contain select-none mx-auto"
               />
             </div>
           )}
