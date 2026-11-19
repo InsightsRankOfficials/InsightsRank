@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Eye, EyeOff, Lock, Mail, Loader2, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, Loader2, ArrowRight, Sun, Moon } from "lucide-react";
 import { toast } from "sonner";
 import { HARDCODED_CREDENTIALS } from "@/api/auth";
 
@@ -23,7 +23,17 @@ function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Form credentials initialized with standard access credentials
+  // Sync with document theme state
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
+      return document.documentElement.classList.contains("dark");
+    }
+    return true;
+  });
+
+  // Pre-configured login credentials
   const [loginEmail, setLoginEmail] = useState(HARDCODED_CREDENTIALS.email);
   const [loginPassword, setLoginPassword] = useState(HARDCODED_CREDENTIALS.password);
 
@@ -33,6 +43,20 @@ function LoginPage() {
       navigate({ to: "/", replace: true });
     }
   }, [isAuthenticated, authLoading, navigate]);
+
+  // Theme toggle handler
+  const handleToggleTheme = () => {
+    const nextDark = !isDark;
+    setIsDark(nextDark);
+    const themeName = nextDark ? "dark" : "light";
+    localStorage.setItem("theme", themeName);
+    document.documentElement.classList.toggle("dark", nextDark);
+    document.documentElement.classList.toggle("light", !nextDark);
+    if (document.body) {
+      document.body.classList.toggle("dark", nextDark);
+      document.body.classList.toggle("light", !nextDark);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,27 +89,56 @@ function LoginPage() {
 
   return (
     <div
-      className="relative min-h-screen w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-cover bg-center bg-no-repeat overflow-hidden transition-all duration-500"
       style={{
         backgroundImage: "url('/images/login-bg.jpg')",
       }}
     >
-      {/* Visual Overlay for legibility & contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/40 via-background/40 to-slate-900/60 backdrop-blur-[3px]" />
+      {/* Dynamic Theme-Aware Backdrop Overlay */}
+      {/* Light mode: crisp, soft frosted glaze to let the illustration shine without visual noise */}
+      {/* Dark mode: deep obsidian & midnight-blue atmospheric gradient with glowing vignette for seamless contrast */}
+      <div className="absolute inset-0 transition-all duration-500 bg-white/35 backdrop-blur-[2px] dark:bg-gradient-to-b dark:from-slate-950/92 dark:via-[#070d1e]/94 dark:to-slate-950/96 dark:backdrop-blur-[5px]" />
 
-      {/* Main Login Card */}
-      <div className="relative z-10 w-full max-w-[440px]">
-        <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-card/90 dark:bg-card/85 backdrop-blur-2xl shadow-2xl shadow-black/20 p-6 sm:p-8 transition-all">
+      {/* Dark mode ambient radial glow behind card */}
+      <div className="absolute inset-0 pointer-events-none hidden dark:block bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-600/15 via-transparent to-transparent" />
+
+      {/* Top Bar with Theme Toggle */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          onClick={handleToggleTheme}
+          className="size-9 rounded-full bg-white/80 dark:bg-slate-900/80 border-slate-200/80 dark:border-slate-800 shadow-md backdrop-blur-md hover:bg-white dark:hover:bg-slate-800 transition-all"
+          aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        >
+          {isDark ? (
+            <Sun className="size-4 text-amber-400 transition-transform rotate-0 scale-100" />
+          ) : (
+            <Moon className="size-4 text-slate-700 transition-transform rotate-0 scale-100" />
+          )}
+        </Button>
+      </div>
+
+      {/* Sign-in Card Container */}
+      <div className="relative z-10 w-full max-w-[430px]">
+        <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/85 backdrop-blur-2xl shadow-2xl shadow-slate-900/10 dark:shadow-[0_0_60px_-15px_rgba(37,99,235,0.25)] p-7 sm:p-9 transition-all duration-300">
           
-          {/* Brand Header */}
+          {/* Theme-Adaptive Logo Header */}
           <div className="flex flex-col items-center text-center mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/25 mb-3">
-              <span className="font-bold text-xl tracking-tight">IR</span>
+            <div className="h-10 sm:h-11 flex items-center justify-center mb-2">
+              <img
+                src="/images/logo-light.png"
+                alt="InsightsRank"
+                className="h-8 sm:h-9 w-auto dark:hidden block object-contain select-none"
+              />
+              <img
+                src="/images/logo-dark.png"
+                alt="InsightsRank"
+                className="h-8 sm:h-9 w-auto hidden dark:block object-contain select-none"
+              />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              InsightsRank
-            </h1>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
               Google Business Profile Intelligence Platform
             </p>
           </div>
@@ -113,7 +166,7 @@ function LoginPage() {
                   placeholder="name@company.com"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
-                  className="pl-9 text-xs h-10 bg-background/80 border-border/70"
+                  className="pl-9 text-xs h-10 bg-slate-50/80 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-foreground"
                   required
                   disabled={isSubmitting}
                 />
@@ -142,7 +195,7 @@ function LoginPage() {
                   placeholder="••••••••"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  className="pl-9 pr-10 text-xs h-10 bg-background/80 border-border/70"
+                  className="pl-9 pr-10 text-xs h-10 bg-slate-50/80 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-foreground"
                   required
                   disabled={isSubmitting}
                 />
@@ -170,7 +223,7 @@ function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full h-10 text-xs font-semibold shadow-md shadow-primary/20 mt-2"
+              className="w-full h-10 text-xs font-semibold shadow-md shadow-primary/25 mt-2"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -185,7 +238,7 @@ function LoginPage() {
             </Button>
           </form>
 
-          {/* Subtle Security & Enterprise Notice */}
+          {/* Security & Multi-tenant Notice */}
           <div className="mt-6 pt-5 border-t border-border/40 text-center">
             <p className="text-[11px] text-muted-foreground">
               Protected by enterprise-grade encryption & multi-tenant isolation.
@@ -195,7 +248,7 @@ function LoginPage() {
 
         {/* Footer info */}
         <div className="mt-4 text-center">
-          <p className="text-[11px] text-slate-200/90 drop-shadow-sm font-medium">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
             © 2026 InsightsRank. All rights reserved.
           </p>
         </div>

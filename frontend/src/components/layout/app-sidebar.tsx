@@ -33,21 +33,31 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
         <Link
           to="/"
           onClick={onNavigate}
-          className="flex min-w-0 items-center gap-2.5 rounded-md px-1 py-1"
+          className={cn(
+            "flex min-w-0 items-center rounded-md px-1.5 py-1 transition-opacity hover:opacity-90",
+            isCollapsed ? "justify-center" : "gap-2.5",
+          )}
           aria-label={`${APP.name} home`}
         >
-          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
-            <Radar className="size-4.5" aria-hidden />
-          </span>
-          {!isCollapsed && (
-            <span className="min-w-0">
-              <span className="block truncate text-sm font-semibold tracking-tight">
-                {APP.name}
-              </span>
-              <span className="block truncate text-[11px] text-muted-foreground">
-                GBP control plane
-              </span>
-            </span>
+          {isCollapsed ? (
+            <img
+              src="/images/pin-icon.png"
+              alt="InsightsRank"
+              className="size-7 object-contain select-none"
+            />
+          ) : (
+            <div className="flex h-8 items-center">
+              <img
+                src="/images/logo-light.png"
+                alt="InsightsRank"
+                className="h-6 w-auto dark:hidden block object-contain select-none"
+              />
+              <img
+                src="/images/logo-dark.png"
+                alt="InsightsRank"
+                className="h-6 w-auto hidden dark:block object-contain select-none"
+              />
+            </div>
           )}
         </Link>
       </div>
